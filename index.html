@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الاختبار</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            width: 80%;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+        .closed-message {
+            font-size: 1.5em;
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>الاختبار الإلكتروني</h1>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd5O5BUN-98CH5ld7PL_Pntar-xSW6fAEiUp69-1T_SJiEysQ/viewform?usp=sharing"></iframe>
+        <div class="closed-message" id="closedMessage">
+            <p>لقد انتهت فترة الاختبار.</p>
+        </div>
+    </div>
+
+    <script>
+        // تحديد الوقت الذي سينتهي فيه الاختبار (مثلاً 48 ساعة من الآن)
+        var expirationDate = new Date("2025-01-30T20:25:00").getTime();
+
+        // دالة للتحقق من الوقت الحالي
+        function checkTime() {
+            var now = new Date().getTime();
+            if (now >= expirationDate) {
+                document.querySelector("iframe").style.display = "none"; // إخفاء الـ iframe
+                document.getElementById("closedMessage").style.display = "block"; // عرض رسالة انتهاء الاختبار
+            }
+        }
+
+        // تحقق من الوقت فور تحميل الصفحة
+        checkTime();
+
+        // تحقق من الوقت كل دقيقة
+        setInterval(checkTime, 60000);
+    </script>
+</body>
+</html>
