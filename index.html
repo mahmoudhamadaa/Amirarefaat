@@ -102,69 +102,72 @@
 <body>
     <div class="container">
         <header class="header">
-            <h1> اختبار من اميره رفعت</h1>
+            <h1> اختبار مرحله خامسه وسادسه كنيسة العذراء مريم والمارجرجس بكوم بدار</h1>
             <div class="timer" id="timer"></div>
         </header>
         
         <main class="exam-container">
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd5O5BUN-98CH5ld7PL_Pntar-xSW6fAEiUp69-1T_SJiEysQ/viewform?usp=sharing"></iframe>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSek0r8yFCH1c2hqhyMJ7ENghpfgCJA0rkUyOaNRjf8lOWMm6Q/viewform?usp=header"></iframe>
             <div class="closed-message" id="closedMessage">
                 <p>
-                     لقد انتهت فترة الاختبار <br> Dr.Amira Refaat</p>
+                     لقد انتهت فترة الاختبار <br> Amira Refaat</p>
             </div>
         </main>
     </div>
 
     <script>
-        const endDate = new Date("2025-01-31T01:00:00");
-        
-        function formatTime(date) {
-            let hours = date.getHours();
-            const minutes = date.getMinutes();
-            const period = hours >= 12 ? "مساءً" : "صباحاً";
-            
-            // تحويل إلى نظام 12 ساعة
-            hours = hours % 12;
-            hours = hours ? hours : 12;
-            
-            return `${hours}:${minutes.toString().padStart(2, '0')} ${period}`;
-        }
+     
+    const startDate = new Date("2025-02-07T01:00:00"); // وقت بداية الاختبار
+    const endDate = new Date("2025-02-09T01:00:00");   // وقت نهاية الاختبار
 
-        function updateTimer() {
-            const now = new Date();
-            const distance = endDate - now;
+    function formatTime(date) {
+        let hours = date.getHours();
+        const minutes = date.getMinutes();
+        const period = hours >= 12 ? "مساءً" : "صباحاً";
 
-            if (distance <= 0) {
-                document.querySelector("iframe").style.display = "none";
-                document.getElementById("closedMessage").style.display = "block";
-                document.getElementById("timer").style.display = "none";
-                return;
-            }
+        hours = hours % 12 || 12;
+        return `${hours}:${minutes.toString().padStart(2, '0')} ${period}`;
+    }
 
-            // حساب الوقت المتبقي
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    function updateTimer() {
+        const now = new Date();
 
-            // تنسيق العرض
-            const timeString = [];
-            if (days > 0) timeString.push(`${days} يوم`);
-            if (hours > 0) timeString.push(`${hours} ساعة`);
-            if (minutes > 0) timeString.push(`${minutes} دقيقة`);
-            if (seconds > 0) timeString.push(`${seconds} ثانية`);
-
-            const examEndTime = `موعد انتهاء الاختبار: ${formatTime(endDate)}`;
-            const remainingTime = `الوقت المتبقي: ${timeString.join(' و ')}`;
-
-            document.getElementById("timer").innerHTML = `
-                ${examEndTime}<br>
-                ${remainingTime}
+        if (now < startDate) {
+            document.querySelector("iframe").style.display = "none";
+            document.getElementById("closedMessage").style.display = "block";
+            document.getElementById("closedMessage").innerHTML = `
+                <p>الاختبار لم يبدأ بعد! <br> يبدأ في ${formatTime(startDate)}</p>
             `;
+            document.getElementById("timer").style.display = "none";
+            return;
         }
 
-        updateTimer();
-        setInterval(updateTimer, 1000);
+        if (now >= endDate) {
+            document.querySelector("iframe").style.display = "none";
+            document.getElementById("closedMessage").style.display = "block";
+            document.getElementById("closedMessage").innerHTML = `
+                <p>لقد انتهت فترة الاختبار <br> Amira Refaat</p>
+            `;
+            document.getElementById("timer").style.display = "none";
+            return;
+        }
+
+        // حساب الوقت المتبقي
+        const distance = endDate - now;
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("timer").innerHTML = `
+            موعد انتهاء الاختبار: ${formatTime(endDate)}<br>
+            الوقت المتبقي: ${hours} ساعة و ${minutes} دقيقة و ${seconds} ثانية
+        `;
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+
+
     </script>
 </body>
 </html>
