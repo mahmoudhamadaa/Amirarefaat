@@ -102,12 +102,12 @@
 <body>
     <div class="container">
         <header class="header">
-            <h1> اختبار مرحله خامسه وسادسه كنيسة العذراء مريم والمارجرجس بكوم بدار</h1>
+            <h1>اختبار مرحله خامسه وسادسه كنيسة العذراء مريم والمارجرجس بكوم بدار</h1>
             <div class="timer" id="timer"></div>
         </header>
         
         <main class="exam-container">
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSek0r8yFCH1c2hqhyMJ7ENghpfgCJA0rkUyOaNRjf8lOWMm6Q/viewform?usp=header"></iframe>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSek0r8yFCH1c2hqhyMJ7ENghpfgCJA0rkUyOaNRjf8lOWMm6Q/viewform?usp=dialog"></iframe>
             <div class="closed-message" id="closedMessage">
                 <p>
                      لقد انتهت فترة الاختبار </p>
@@ -116,7 +116,6 @@
     </div>
 
     <script>
-     
     const startDate = new Date("2025-02-07T01:00:00"); // وقت بداية الاختبار
     const endDate = new Date("2025-02-09T01:00:00");   // وقت نهاية الاختبار
 
@@ -154,20 +153,18 @@
 
         // حساب الوقت المتبقي
         const distance = endDate - now;
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         document.getElementById("timer").innerHTML = `
             موعد انتهاء الاختبار: ${formatTime(endDate)}<br>
-            الوقت المتبقي: ${hours} ساعة و ${minutes} دقيقة و ${seconds} ثانية
+            الوقت المتبقي: ${days} يوم و ${hours} ساعة و ${minutes} دقيقة و ${seconds} ثانية
         `;
     }
-
     updateTimer();
     setInterval(updateTimer, 1000);
-
-
     </script>
 </body>
 </html>
